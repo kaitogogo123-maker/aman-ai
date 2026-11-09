@@ -1,0 +1,52 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tamga",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-05-09",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "global_fetch_strictly_public"
+  ],
+  "workers_dev": true,
+  "vars": {
+    "AUTH_PROVIDER": "marketplace",
+    "MOCK_MODE": "false",
+    "APP_BASE_URL": "https://tamga.kaitogogo123.workers.dev",
+    "PAYMENT_PROVIDER": "disabled",
+    "DEVICE_DAILY_QUOTA": "10",
+    "ALI_DASHSCOPE_ENDPOINT": "https://dashscope-intl.aliyuncs.com/compatible-mode/v1",
+    "ALI_DASHSCOPE_ANALYSIS_TEXT_MODEL": "qwen3.5-plus",
+    "ALI_DASHSCOPE_ANALYSIS_VISION_MODEL": "qwen3-vl-plus",
+    "MARKETPLACE_API_BASE_URL": "https://aman.kz/api",
+    "R2_BUCKET_UPLOADS": "tamga-uploads",
+    "R2_BUCKET_RESULTS": "tamga-results",
+    "R2_PUBLIC_URL": "https://pub-88557b2819544c58b08b07b52d335258.r2.dev"
+  },
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "tamga"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "NEXT_INC_CACHE_R2_BUCKET",
+      "bucket_name": "tamga-opennext-cache"
+    },
+    {
+      "binding": "R2_UPLOADS",
+      "bucket_name": "tamga-uploads"
+    },
+    {
+      "binding": "R2_RESULTS",
+      "bucket_name": "tamga-results"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}

@@ -1,0 +1,9 @@
+<svg width="900" height="900" viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="900" fill="#172027"/>
+  <circle cx="710" cy="172" r="86" fill="#F59E0B"/>
+  <path d="M0 680C170 560 280 590 450 680C620 770 750 640 900 710V900H0V680Z" fill="#2F6F4E"/>
+  <path d="M130 655L450 250L770 655H130Z" fill="#F14635"/>
+  <path d="M260 622L450 350L640 622H260Z" fill="#FAF8F3"/>
+  <text x="84" y="108" font-family="Arial" font-size="46" font-weight="800" fill="#FAF8F3">READY FOR ANY WEATHER</text>
+  <text x="84" y="164" font-family="Arial" font-size="28" fill="#D7E7DC">Fast setup. Wind resistant. Compact pack.</text>
+</svg>

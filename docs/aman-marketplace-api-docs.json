@@ -1,0 +1,7272 @@
+{
+  "openapi": "3.0.1",
+  "servers": [
+    {
+      "url": "https://aman.kz/api",
+      "description": "Generated server url"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/profile/image": {
+      "put": {
+        "tags": [
+          "Профиль беті! Страница профиля!"
+        ],
+        "operationId": "updateProfileImage",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "file"
+                ],
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Профиль беті! Страница профиля!"
+        ],
+        "operationId": "addProfileImage",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "file"
+                ],
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Профиль беті! Страница профиля!"
+        ],
+        "operationId": "deleteProfileImage",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/updateFavorites/{id}": {
+      "put": {
+        "tags": [
+          "Тауарлар! Продукты!"
+        ],
+        "summary": "добавить/убрать избранное",
+        "operationId": "updateFavorites",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/internal/cart/update": {
+      "put": {
+        "tags": [
+          "INTERNAL Тауар себеті! Корзина товара!"
+        ],
+        "summary": "Себеттегі тауар санын өзгерту! Изменить количество товара в корзине!",
+        "operationId": "updateBasket",
+        "parameters": [
+          {
+            "name": "cartOrderId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Тауар саны өзгерді! Количество товара изменен!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CartOrders"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer/update": {
+      "put": {
+        "tags": [
+          "internal-customer-controller"
+        ],
+        "summary": "Обновление профиля покупателя!",
+        "operationId": "updateCustomer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Customer"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Страница профиля успешно обновлена!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Customer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sellers/follow-to-market": {
+      "put": {
+        "tags": [
+          "Селлер пейдж контроллер!"
+        ],
+        "summary": "Добавить магазин в избранное!",
+        "operationId": "followToMarket",
+        "parameters": [
+          {
+            "name": "sellerId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "moderatorsId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Магазин успешно добавлен в избранное!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aman/admin/categories/update": {
+      "put": {
+        "tags": [
+          "Санаттар контроллері! Контроллер категории!"
+        ],
+        "summary": "Санатты өзгерту! Изменить категорию!",
+        "operationId": "adminUpdateOrder",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCategoryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Категория өзгертілді! Категория изменен!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/change-phone/verify": {
+      "post": {
+        "tags": [
+          "Профиль беті! Страница профиля!"
+        ],
+        "summary": "Меняет номер телефона на новый с проверкой смс кода",
+        "operationId": "changePhoneNumber",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePhoneNumberRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/change-password": {
+      "post": {
+        "tags": [
+          "Профиль беті! Страница профиля!"
+        ],
+        "summary": "Меняeм пароль пользователя на новый",
+        "operationId": "changePassword",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/upload-image/categories": {
+      "post": {
+        "tags": [
+          "Тауарлар! Продукты!"
+        ],
+        "summary": "Загрузка фотографии по категориям.Эндпоинт бэка для загрузки фото",
+        "operationId": "uploadImageCategories",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoriesPictures"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/get-all/with-image": {
+      "post": {
+        "tags": [
+          "Тауарлар! Продукты!"
+        ],
+        "operationId": "getAllProductsByList",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImageRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductChDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/order/get-order": {
+      "post": {
+        "tags": [
+          "INTERNAL заказы!"
+        ],
+        "summary": "Тапсырысты іздеу! Искать заказ!",
+        "operationId": "getOrders",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "trackCode",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Тапсырыс табылды! Заказ найден!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/order/create": {
+      "post": {
+        "tags": [
+          "INTERNAL заказы!"
+        ],
+        "summary": "Создание заказа",
+        "operationId": "addOrders",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatePaymentResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/order/create-v2": {
+      "post": {
+        "tags": [
+          "INTERNAL заказы!"
+        ],
+        "summary": "Создание заказа V2 (новая структура товаров KZ с colorVariants)",
+        "operationId": "addOrdersV2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOrderRequestV2"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatePaymentResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/order/calculate/fullo/delivery-price": {
+      "post": {
+        "tags": [
+          "INTERNAL заказы!"
+        ],
+        "operationId": "calcToDoor",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GiveCalcToDoor"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/feedbacks/create": {
+      "post": {
+        "tags": [
+          "INTERNAL Пікірлер! Отзывы!"
+        ],
+        "summary": "Пікір жазу! Написать отзыв!",
+        "operationId": "createFeedback",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFeedbackRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Тапсырыс жасалды! Отзыв создан!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Feedbacks"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/feedbacks/create-to-admin": {
+      "post": {
+        "tags": [
+          "INTERNAL Пікірлер! Отзывы!"
+        ],
+        "summary": "Пікір жазу! Написать отзыв про админа филиала!",
+        "operationId": "createFeedbackToAdminFilial",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFeedbackRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Тапсырыс жасалды! Отзыв создан!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Feedbacks"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/favorites/delete": {
+      "post": {
+        "tags": [
+          "INTERNAL Таңдаулы! INTERNAL Избранные!"
+        ],
+        "summary": "Тауарды таңдаулылардан өшіру! Убрать из избранного!",
+        "operationId": "deleteFromFavourite",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Тауар таңдаулыдан жойылды! Товар удален из избранного!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/favorites/add": {
+      "post": {
+        "tags": [
+          "INTERNAL Таңдаулы! INTERNAL Избранные!"
+        ],
+        "summary": "Тауарды таңдаулыға қосу! Добавить в избранное!",
+        "operationId": "addToFavourite",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Тауар таңдаулыға қосылды! Товар добавлен в избранное!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FavoritesDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/cart/add": {
+      "post": {
+        "tags": [
+          "INTERNAL Тауар себеті! Корзина товара!"
+        ],
+        "summary": "Тауарды себетке қосу! Добавление товара в корзину!",
+        "operationId": "createCart",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "amount",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "specIds",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "color",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sizes",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "cityId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "isSub",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Себетке қосылды! Добавлен в корзину!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/cart/add/kz": {
+      "post": {
+        "tags": [
+          "INTERNAL Тауар себеті! Корзина товара!"
+        ],
+        "summary": "Тауарды себетке қосу (KZ, JSON)! Добавление KZ-товара в корзину через JSON!",
+        "operationId": "createCartKz",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CartAddRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Себетке қосылды! Добавлен в корзину!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/filials/fullo/by-city": {
+      "post": {
+        "tags": [
+          "fullo-controller"
+        ],
+        "summary": "Қала id бойынша филиалдарын координатамен алу! Получение по id города филиалы с координатами!",
+        "operationId": "getFilialByCityIdWithCoordsAndFulloWithPrice",
+        "parameters": [
+          {
+            "name": "cityId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "cityName",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CalculationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Филиалдар алынды! Филиалы получены!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FilialDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feedbacks/all-by-product-id": {
+      "post": {
+        "tags": [
+          "Пікірлер! Отзывы!"
+        ],
+        "summary": "Тауардың пікірлерін алу! Получить отзывы товара!",
+        "operationId": "byProductId",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Pageable"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Тауар пікірлері алынды! Отзывы товара получены!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageFeedbacks"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category-image/upload": {
+      "post": {
+        "tags": [
+          "category-image-controller"
+        ],
+        "operationId": "uploadImage",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CategoryImageUploadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/authmarket/sign-up": {
+      "post": {
+        "tags": [
+          "Аутентификация"
+        ],
+        "summary": "Регистрация пользователя",
+        "operationId": "signUp",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignUpRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JwtAuthenticationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/authmarket/sign-in": {
+      "post": {
+        "tags": [
+          "Аутентификация"
+        ],
+        "summary": "Авторизация пользователя",
+        "operationId": "signIn",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignInRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JwtAuthenticationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/authmarket/refresh": {
+      "post": {
+        "tags": [
+          "Аутентификация"
+        ],
+        "summary": "Обновление access token по refresh token",
+        "operationId": "refresh",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/JwtRefreshRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/JwtAuthenticationResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/authmarket/forgot-password": {
+      "post": {
+        "tags": [
+          "Аутентификация"
+        ],
+        "summary": "Забыли пароль",
+        "operationId": "forgotYourPassword",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignUpRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PairStringLong"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/notifications/tokens/save": {
+      "post": {
+        "tags": [
+          "Firebase хабарландырулар!"
+        ],
+        "operationId": "saveToken",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "customerId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "platform",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/notifications/tokens/deactivate": {
+      "post": {
+        "tags": [
+          "Firebase хабарландырулар!"
+        ],
+        "summary": "Кастомердің токенін өшіру!",
+        "operationId": "deactivateToken",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "customerId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Кастомердің токені сәтті өшірілді!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/notifications/tokens/activate": {
+      "post": {
+        "tags": [
+          "Firebase хабарландырулар!"
+        ],
+        "summary": "Кастомердің токенін қосу!",
+        "operationId": "activateToken",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "customerId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "platform",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Кастомердің токені сәтті қосылды!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aman/admin/categories": {
+      "get": {
+        "tags": [
+          "Санаттар контроллері! Контроллер категории!"
+        ],
+        "summary": "Админ санаттарды алуда! Админ получает котегории!",
+        "operationId": "getAllOrders",
+        "parameters": [
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Админ категорияларды алды! Админ получил категории!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCategoryDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Санаттар контроллері! Контроллер категории!"
+        ],
+        "summary": "Санат құру! Создаать категорию!",
+        "operationId": "createOrder",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCategoryRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Санат құрылды! Категория создан!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search-prices": {
+      "get": {
+        "tags": [
+          "Тауарлар! Продукты!"
+        ],
+        "summary": "Получение минимальной цены и максимальной при поиске",
+        "operationId": "getSearchPrices",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sellerIdKz",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/referrals/get-all": {
+      "get": {
+        "tags": [
+          "referrals-controller"
+        ],
+        "operationId": "getAllReferrals",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReferralsDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/orders": {
+      "get": {
+        "tags": [
+          "Профиль беті! Страница профиля!"
+        ],
+        "summary": "Извлекает заказы пользователя.На странице мой профиль заказы по пользователю.",
+        "operationId": "getOrders_1",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageOrderDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/my-presents": {
+      "get": {
+        "tags": [
+          "Профиль беті! Страница профиля!"
+        ],
+        "operationId": "getMyPresents",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CustomerPresentsDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/info": {
+      "get": {
+        "tags": [
+          "Профиль беті! Страница профиля!"
+        ],
+        "summary": "Извлекает полное имя и email пользователя.На странице мой профиль слева в меню.",
+        "operationId": "getInfoByToken",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/profile/change-phone/get-otp": {
+      "get": {
+        "tags": [
+          "Профиль беті! Страница профиля!"
+        ],
+        "summary": "Получаем OTP для потльзователя для смены номера телефона",
+        "operationId": "getOtp",
+        "parameters": [
+          {
+            "name": "newPhoneNumber",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": [
+          "Тауарлар! Продукты!"
+        ],
+        "summary": "Барлықө тауарларды алу! Получение всех продуктов!",
+        "operationId": "getCategoryDataById",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "secondCatIdChina",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "thirdCatIdChina",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "priceFrom",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "priceTo",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "color",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortirovka",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sellerIdKz",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Барлық тауарлар алынды! Все товары получены!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/productsChina/{id}": {
+      "get": {
+        "tags": [
+          "Тауарлар! Продукты!"
+        ],
+        "summary": "получение китайского карточки товара по id",
+        "operationId": "getProductChina",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductChDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "tags": [
+          "Тауарлар! Продукты!"
+        ],
+        "summary": "получение карточки товара по id",
+        "operationId": "getProduct",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/top": {
+      "get": {
+        "tags": [
+          "Тауарлар! Продукты!"
+        ],
+        "summary": "Көп сатылатын тауарлар! Топ N продоваемых товаров!",
+        "operationId": "getTopProduct",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Топ N тауар алынды!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Бұл категория бойынша сатылым жоқ",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/last-added": {
+      "get": {
+        "tags": [
+          "Тауарлар! Продукты!"
+        ],
+        "summary": "Соңғы 20 тауарды алу! Получить последние 20 товаров!",
+        "operationId": "lastAdded",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Соңғы 20 тауар алынды! Последние 20 Продукта получены!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/get-all": {
+      "get": {
+        "tags": [
+          "Тауарлар! Продукты!"
+        ],
+        "summary": "Барлық продукттарды алу! Получение всех продуктов!",
+        "operationId": "getAllProducts",
+        "parameters": [
+          {
+            "name": "cityId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "categoryId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Продукт листингы алынды! Листинг продуктов загружен успешно!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageProductDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/all-brands": {
+      "get": {
+        "tags": [
+          "Тауарлар! Продукты!"
+        ],
+        "summary": "Получение всех брендов!",
+        "operationId": "getAllBrands",
+        "responses": {
+          "200": {
+            "description": "Бренды получены успешно!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/present/roulette": {
+      "get": {
+        "tags": [
+          "present-controller"
+        ],
+        "operationId": "getRoulettePresents",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PresentDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/recently-viewed-products": {
+      "get": {
+        "tags": [
+          "INTERNAL Тауарлар! INTERNAL Продукты!"
+        ],
+        "summary": "Жақында қаралған! Недавно просмотренные!",
+        "operationId": "getRecentlyViewedProducts",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sellerIdKz",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Zero-based page index (0..N)",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "The size of the page to be returned",
+            "required": false,
+            "schema": {
+              "minimum": 1,
+              "type": "integer",
+              "default": 20
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Жақында қаралған тауарлар алынды! Недавно просмотренные товары получены!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/order/paymentStatus": {
+      "get": {
+        "tags": [
+          "INTERNAL заказы!"
+        ],
+        "summary": "Проверка платежа по пеймент ид",
+        "operationId": "getPaymentStatus",
+        "parameters": [
+          {
+            "name": "paymentId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionStatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/order/error": {
+      "get": {
+        "tags": [
+          "INTERNAL заказы!"
+        ],
+        "summary": "Для закрытия модалки/Orders ошибка",
+        "operationId": "getPaymentError",
+        "parameters": [
+          {
+            "name": "paymentId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/favorites/product-count": {
+      "get": {
+        "tags": [
+          "INTERNAL Таңдаулы! INTERNAL Избранные!"
+        ],
+        "summary": "Количество пользователей добавивших товар в избранное!!",
+        "operationId": "getCountFavoritesOfProduct",
+        "parameters": [
+          {
+            "name": "productId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Количество людей добавивших в избранное!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Тауар табылмады! Товар  не найден!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/favorites/all": {
+      "get": {
+        "tags": [
+          "INTERNAL Таңдаулы! INTERNAL Избранные!"
+        ],
+        "summary": "Таңдаулы тауарларды алу! Получение избранных товаров!",
+        "operationId": "getFavorites",
+        "parameters": [
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Барлық таңдаулылар алынды! Все избранные получены!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageFavoritesDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/favorites/all-count": {
+      "get": {
+        "tags": [
+          "INTERNAL Таңдаулы! INTERNAL Избранные!"
+        ],
+        "summary": "Получение количества избранных товаров!",
+        "operationId": "getFavoritesCount",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Количество избранных получены!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/cart/get-all": {
+      "get": {
+        "tags": [
+          "INTERNAL Тауар себеті! Корзина товара!"
+        ],
+        "summary": "Себеттегі барлық тауарды алу! Получение всех товаров в корзине!",
+        "operationId": "getAllCartOrdersList",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Барлық тауар алынды! Все товары получены!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCartOrderDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/cart/get-all-count": {
+      "get": {
+        "tags": [
+          "INTERNAL Тауар себеті! Корзина товара!"
+        ],
+        "summary": "Получение количества товаров в корзине!",
+        "operationId": "getAllCartOrdersList_1",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Количество товаров в корзине получено!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/homePage/popular-products": {
+      "get": {
+        "tags": [
+          "Главная страница"
+        ],
+        "summary": "Получение популярных продуктов",
+        "operationId": "getPopularProducts",
+        "parameters": [
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sellerIdKz",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageProductDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/homePage/popular-categories": {
+      "get": {
+        "tags": [
+          "Главная страница"
+        ],
+        "summary": "Получение популярных категорий",
+        "operationId": "getPopularCategories",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/homePage/categories": {
+      "get": {
+        "tags": [
+          "Главная страница"
+        ],
+        "summary": "Получение всех категорий",
+        "operationId": "getCategories",
+        "parameters": [
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          },
+          {
+            "name": "sellerIdKz",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get-settlement": {
+      "get": {
+        "tags": [
+          "fullo-controller"
+        ],
+        "operationId": "getSettlementByName",
+        "parameters": [
+          {
+            "name": "settlementName",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CityDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get-recommended": {
+      "get": {
+        "tags": [
+          "Тауарлар! Продукты!"
+        ],
+        "summary": "Получение рекомендованных",
+        "operationId": "getRecommended",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductChDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/get-recommended/kz": {
+      "get": {
+        "tags": [
+          "Тауарлар! Продукты!"
+        ],
+        "summary": "Получение рекомендованных KZ товаров",
+        "operationId": "getRecommendedKz",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/fullo/meta": {
+      "get": {
+        "tags": [
+          "fullo-controller"
+        ],
+        "summary": "Получить список методов доставки (DeliveryMethod) с описанием (RU) и кодом Fullo",
+        "operationId": "getDeliveryMethodsMeta",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/DeliveryMethodOption"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/filials": {
+      "get": {
+        "tags": [
+          "Филиал контроллері! Контроллер филиала!"
+        ],
+        "operationId": "getAllFilials",
+        "parameters": [
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageFilial"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/filials/by-city": {
+      "get": {
+        "tags": [
+          "Филиал контроллері! Контроллер филиала!"
+        ],
+        "summary": "Қала id бойынша филиалдарын координатамен алу! Получение по id города филиалы с координатами!",
+        "operationId": "getFilialByCityIdWithCoords",
+        "parameters": [
+          {
+            "name": "cityId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Филиалдар алынды! Филиалы получены!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FilialDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/filials/by-city-id": {
+      "get": {
+        "tags": [
+          "Филиал контроллері! Контроллер филиала!"
+        ],
+        "summary": "Қала id бойынша филиалдарын алу! Получение по id города филиалы!",
+        "operationId": "getFilialByCityId",
+        "parameters": [
+          {
+            "name": "cityId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Филиалдар алынды! Филиалы получены!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Filial"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/filials/by-city-id-main_filial": {
+      "get": {
+        "tags": [
+          "Филиал контроллері! Контроллер филиала!"
+        ],
+        "summary": "Қала id бойынша негізгі бөлімшені алу! Получить по id города главный  филиала!",
+        "operationId": "getFilialAddressByCityId",
+        "parameters": [
+          {
+            "name": "cityId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Филиал алынды!, Филиал получен!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilialResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/city/get-by-filials": {
+      "get": {
+        "tags": [
+          "Қала контроллері! Контроллер города!"
+        ],
+        "summary": "Получение городов в которых есть филиалы!",
+        "operationId": "getFilialByCityId_1",
+        "responses": {
+          "200": {
+            "description": "Филиалдар алынды! Филиалы получены!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/City"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/city/get-all-cities": {
+      "get": {
+        "tags": [
+          "Қала контроллері! Контроллер города!"
+        ],
+        "operationId": "getAllCities",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/City"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/city/active-cities": {
+      "get": {
+        "tags": [
+          "Қала контроллері! Контроллер города!"
+        ],
+        "operationId": "activeCities",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/City"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/category-image/get": {
+      "get": {
+        "tags": [
+          "category-image-controller"
+        ],
+        "operationId": "getImage",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sellers/sellerinfo/{sellerId}": {
+      "get": {
+        "tags": [
+          "Селлер пейдж контроллер!"
+        ],
+        "operationId": "getSellerInfo",
+        "parameters": [
+          {
+            "name": "sellerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SellerDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sellers/productBySeller/{sellerId}": {
+      "get": {
+        "tags": [
+          "Селлер пейдж контроллер!"
+        ],
+        "operationId": "getProductsBySeller",
+        "parameters": [
+          {
+            "name": "sellerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "isPinned",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageProductDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/notifications/tokens/{customerId}": {
+      "get": {
+        "tags": [
+          "Firebase хабарландырулар!"
+        ],
+        "summary": "Кастомердің барлық белсенді токендерін алу!",
+        "operationId": "getActiveTokensForCustomer",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Кастомердің барлық белсенді токендері алынды!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DeviceToken"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "tags": [
+          "Проверка пульса"
+        ],
+        "summary": "Проверка жизнеспособности сервиса",
+        "operationId": "health",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aman/products/count/{id}": {
+      "get": {
+        "tags": [
+          "Тауарлар! Продукты!"
+        ],
+        "summary": "Количество добавленных товаров",
+        "operationId": "countProducts",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aman/order": {
+      "get": {
+        "tags": [
+          "Заказы"
+        ],
+        "summary": "Извлекает заказ по id.",
+        "operationId": "getById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aman/order/status": {
+      "get": {
+        "tags": [
+          "Заказы"
+        ],
+        "summary": "Статусы заказа!",
+        "operationId": "getOrderStatus",
+        "parameters": [
+          {
+            "name": "orderId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Статусы заказа!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderStatusDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aman/order/number": {
+      "get": {
+        "tags": [
+          "Заказы"
+        ],
+        "summary": "Заказ по orderNumber для покупателя",
+        "operationId": "getByOrderNumber",
+        "parameters": [
+          {
+            "name": "number",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OrderDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aman/order/number/status": {
+      "get": {
+        "tags": [
+          "Заказы"
+        ],
+        "summary": "Статусы заказа!",
+        "operationId": "getOrderStatusByNumber",
+        "parameters": [
+          {
+            "name": "number",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Статусы заказа!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/OrderStatusDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aman/getCategories-by-parent": {
+      "get": {
+        "tags": [
+          "Санаттар контроллері! Контроллер категории!"
+        ],
+        "summary": "Все категории по подкатегории!",
+        "operationId": "getCategoryByParent",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "parentCategoryId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aman/getAll": {
+      "get": {
+        "tags": [
+          "Санаттар контроллері! Контроллер категории!"
+        ],
+        "summary": "Барлық санаттар! Все категории!",
+        "operationId": "getAllCategoriesCache",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sellerIdKz",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aman/get-category-features/{category_id}": {
+      "get": {
+        "tags": [
+          "Санаттар контроллері! Контроллер категории!"
+        ],
+        "summary": "Характеристики и вариации для фильтрации",
+        "operationId": "getCategoryFeatures",
+        "parameters": [
+          {
+            "name": "category_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Данные успешно получены",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FeatureDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aman/categories": {
+      "get": {
+        "tags": [
+          "Санаттар контроллері! Контроллер категории!"
+        ],
+        "summary": "Все категории",
+        "operationId": "getAllCategories",
+        "parameters": [
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCategoryDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aman/categories/{id}": {
+      "get": {
+        "tags": [
+          "Санаттар контроллері! Контроллер категории!"
+        ],
+        "summary": "Жалғыз санатты алу! Получение одной категории!",
+        "operationId": "getById_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Категория алынды! Категория получен!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aman/categories/tree": {
+      "get": {
+        "tags": [
+          "Санаттар контроллері! Контроллер категории!"
+        ],
+        "summary": "Подкатегории по категории",
+        "operationId": "getCategoriesTree",
+        "parameters": [
+          {
+            "name": "parentCategoryId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "level",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCategoryWithChildrenDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aman/categories/price": {
+      "get": {
+        "tags": [
+          "Санаттар контроллері! Контроллер категории!"
+        ],
+        "summary": "Диапазон минимальных и максимальных цен категорий",
+        "operationId": "getCategoryPrice",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "secondCatIdChina",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "thirdCatIdChina",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sellerIdKz",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Данные успешно получены",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryPriceProjection"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aman/categories/catalog": {
+      "get": {
+        "tags": [
+          "Санаттар контроллері! Контроллер категории!"
+        ],
+        "operationId": "getRedisCategoriesByParentId",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sellerIdKz",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageObject"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/aman/admin/categories/tree": {
+      "get": {
+        "tags": [
+          "Санаттар контроллері! Контроллер категории!"
+        ],
+        "summary": "Админ санаттардың бұтағын алуда! Админ получает ветку котегории!",
+        "operationId": "getOrdersTree",
+        "parameters": [
+          {
+            "name": "parentCategoryId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "level",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "pageable",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Pageable"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Админ категория бұтағын алды! Админ получил ветку категории!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageCategoryWithChildrenDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/cart/delete": {
+      "delete": {
+        "tags": [
+          "INTERNAL Тауар себеті! Корзина товара!"
+        ],
+        "summary": "Себетті тазалау! Очистить корзину!",
+        "operationId": "deleteBasket",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Себет тазартылды! Корзина очищена!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/cart/delete-by-list": {
+      "delete": {
+        "tags": [
+          "INTERNAL Тауар себеті! Корзина товара!"
+        ],
+        "summary": "Себеттен тауарларды жою! Удаление списка товаров из корзины!",
+        "operationId": "deleteCartByIdList",
+        "parameters": [
+          {
+            "name": "cartOrderIds",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Себеттен жойылды! Удалена из корзины!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/internal/cart/delete-by-id": {
+      "delete": {
+        "tags": [
+          "INTERNAL Тауар себеті! Корзина товара!"
+        ],
+        "summary": "Себеттен тауарды жою! Удаление товара из корзины!",
+        "operationId": "deleteCart",
+        "parameters": [
+          {
+            "name": "cartOrderId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Себеттен жойылды! Удалена из корзины!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customer/delete/{id}": {
+      "delete": {
+        "tags": [
+          "internal-customer-controller"
+        ],
+        "summary": "Удаление профиля покупателя!",
+        "operationId": "deleteCustomer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "Нет прав на удаление этого профиля",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Страница профиля успешно удалена!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/sellers/unfollow-to-market": {
+      "delete": {
+        "tags": [
+          "Селлер пейдж контроллер!"
+        ],
+        "summary": "Убрать магазин из избранного!",
+        "operationId": "unfollowToMarket",
+        "parameters": [
+          {
+            "name": "sellerId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "moderatorsId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Магазин успешно удален из избранного!",
+            "content": {
+              "application/hal+json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CartOrders": {
+        "type": "object",
+        "properties": {
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "customer": {
+            "$ref": "#/components/schemas/Customer"
+          },
+          "amount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "specId": {
+            "type": "string"
+          },
+          "cityId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "finalPriceKzAlmaty": {
+            "type": "string"
+          },
+          "finalPriceKzRegions": {
+            "type": "string"
+          },
+          "finalPriceKzBatys": {
+            "type": "string"
+          },
+          "valueTrans": {
+            "type": "string"
+          },
+          "photoUrl": {
+            "type": "string"
+          },
+          "selectedColor": {
+            "type": "string",
+            "enum": [
+              "Сары Желтый 黄色",
+              "Жасыл Зеленый 绿色",
+              "Қызыл Красный 红色",
+              "Көк Синий 蓝色",
+              "Голубой Голубой 天蓝色",
+              "Қоңыр Коричневый 棕色",
+              "Қызғылт сары Оранжевый 橙色",
+              "Қызғылт Розовый 粉色",
+              "Күлгін Фиолетовый 紫色",
+              "Қара Черный 黑色",
+              "Ақ Белый 白色",
+              "Сұр Серый 灰色",
+              "Бежевый Бежевый 米色"
+            ]
+          },
+          "selectedSize": {
+            "type": "string"
+          },
+          "subVariant": {
+            "$ref": "#/components/schemas/SkuSubVariantEntity"
+          },
+          "isSub": {
+            "type": "boolean"
+          }
+        }
+      },
+      "City": {
+        "type": "object",
+        "properties": {
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "index": {
+            "type": "string"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "shortName": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string",
+            "enum": [
+              "ALMATY",
+              "REGION",
+              "BATYS"
+            ]
+          }
+        }
+      },
+      "Customer": {
+        "type": "object",
+        "properties": {
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "iin": {
+            "type": "string"
+          },
+          "birth_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "resident": {
+            "type": "boolean"
+          },
+          "actual_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "password": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "regionName": {
+            "type": "string"
+          },
+          "cityName": {
+            "type": "string"
+          },
+          "cityId": {
+            "$ref": "#/components/schemas/City"
+          },
+          "idCode": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "ROLE_CLIENT",
+              "ROLE_ADMIN",
+              "ROLE_SELLER"
+            ]
+          },
+          "imageUrl": {
+            "$ref": "#/components/schemas/ImageUrl"
+          },
+          "fromWho": {
+            "type": "string"
+          },
+          "employee": {
+            "type": "boolean"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "authorities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GrantedAuthority"
+            }
+          },
+          "vip": {
+            "type": "boolean"
+          },
+          "accountNonLocked": {
+            "type": "boolean"
+          },
+          "accountNonExpired": {
+            "type": "boolean"
+          },
+          "credentialsNonExpired": {
+            "type": "boolean"
+          },
+          "manuallyEdited": {
+            "type": "boolean"
+          },
+          "enabled": {
+            "type": "boolean"
+          }
+        }
+      },
+      "GrantedAuthority": {
+        "type": "object",
+        "properties": {
+          "authority": {
+            "type": "string"
+          }
+        }
+      },
+      "ImageLink": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "url": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "$ref": "#/components/schemas/ImageUrl"
+          }
+        }
+      },
+      "ImageUrl": {
+        "type": "object",
+        "properties": {
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "whiteImageUrl": {
+            "type": "string"
+          },
+          "imageLinks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ImageLink"
+            }
+          },
+          "imageType": {
+            "type": "string",
+            "enum": [
+              "COMMON",
+              "DESCRIPTION"
+            ]
+          },
+          "customer": {
+            "$ref": "#/components/schemas/Customer"
+          },
+          "fileName": {
+            "type": "string"
+          },
+          "basketName": {
+            "type": "string"
+          }
+        }
+      },
+      "SkuSubVariantEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "mainVariantId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "attributeId": {
+            "type": "string"
+          },
+          "attributeValue": {
+            "type": "string"
+          },
+          "attributeValueTrans": {
+            "type": "string"
+          },
+          "attributeValueTransKz": {
+            "type": "string"
+          },
+          "attributeValueTransRu": {
+            "type": "string"
+          },
+          "consignPrice": {
+            "type": "string"
+          },
+          "finalPriceKzAlmaty": {
+            "type": "string"
+          },
+          "finalPriceKzRegions": {
+            "type": "string"
+          },
+          "finalPriceKzBatys": {
+            "type": "string"
+          },
+          "specId": {
+            "type": "string"
+          },
+          "isActive": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UpdateCategoryRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "status": {
+            "type": "string"
+          },
+          "level": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parent_category_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "category_path": {
+            "type": "string"
+          },
+          "category_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "short_description": {
+            "type": "string"
+          },
+          "image_url": {
+            "type": "string"
+          }
+        }
+      },
+      "CategoryDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string"
+          },
+          "level": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parentCategoryId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "categoryPath": {
+            "type": "string"
+          },
+          "categoryName": {
+            "type": "string"
+          },
+          "categoryNameKz": {
+            "type": "string"
+          },
+          "categoryNameCh": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "shortDescription": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string",
+            "format": "url"
+          }
+        }
+      },
+      "ChangePhoneNumberRequest": {
+        "type": "object",
+        "properties": {
+          "newPhoneNumber": {
+            "type": "string"
+          },
+          "smsCode": {
+            "type": "string"
+          }
+        }
+      },
+      "ChangePasswordRequest": {
+        "type": "object",
+        "properties": {
+          "newPassword": {
+            "type": "string"
+          }
+        }
+      },
+      "CategoriesPictures": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "file": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "ImageRequest": {
+        "type": "object",
+        "properties": {
+          "imageString": {
+            "type": "string"
+          }
+        }
+      },
+      "AttributeDTO": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "valueTrans": {
+            "type": "string"
+          },
+          "valueTransKz": {
+            "type": "string"
+          },
+          "valueTransRu": {
+            "type": "string"
+          },
+          "skuImageUrl": {
+            "type": "string"
+          },
+          "subAttributes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubAttributeDTO"
+            }
+          },
+          "consignPrice": {
+            "type": "string"
+          },
+          "finalPriceKzAlmaty": {
+            "type": "string"
+          },
+          "finalPriceKzRegions": {
+            "type": "string"
+          },
+          "finalPriceKzBatys": {
+            "type": "string"
+          },
+          "specId": {
+            "type": "string"
+          },
+          "width": {
+            "type": "number",
+            "format": "double"
+          },
+          "height": {
+            "type": "number",
+            "format": "double"
+          },
+          "length": {
+            "type": "number",
+            "format": "double"
+          },
+          "weight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "amount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "amountOnSale": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "AttributeResponse": {
+        "type": "object",
+        "properties": {
+          "attributeId": {
+            "type": "string"
+          },
+          "attributeValues": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttributeDTO"
+            }
+          }
+        }
+      },
+      "CategoryInfoDTO": {
+        "type": "object",
+        "properties": {
+          "parentCategoryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parentCategory": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "secondCategoryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "secondCategory": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ContactSeller": {
+        "type": "object",
+        "properties": {
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "seller": {
+            "$ref": "#/components/schemas/Seller"
+          },
+          "value": {
+            "type": "string"
+          },
+          "actual": {
+            "type": "boolean"
+          },
+          "contactType": {
+            "type": "string"
+          },
+          "verified": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Orders": {
+        "type": "object",
+        "properties": {
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "order_price": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "delivery_adress": {
+            "type": "string"
+          },
+          "pricePerPiece": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "amountOfProduct": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "actual": {
+            "type": "boolean"
+          },
+          "seller": {
+            "$ref": "#/components/schemas/Seller"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "DELAY_DUE_TO_HOLIDAYS",
+              "WAITING_PAYMENT",
+              "PAID_AND_CREATED",
+              "TO_CHINA_STORE",
+              "CHINA",
+              "WAREHOUSE_CHECK",
+              "PACKAGED",
+              "PREPARING_FOR_TERMINAL",
+              "AWAITING_DISPATCH",
+              "SENT_TO_TERMINAL",
+              "ARRIVED_AT_CUSTOMS",
+              "AT_CUSTOMS",
+              "CUSTOMS_CHECK",
+              "CUSTOMS_COMPLETED",
+              "PENDING",
+              "SENT_TO_STATION",
+              "SENT_TO_SORTING",
+              "TRANSFERRED_TO_THE_SENDER",
+              "SORTING",
+              "SENT_TO_YOUR_CITY",
+              "SENT_TO_THE_CITY",
+              "WAITING_FOR_ARRIVAL",
+              "SUB_FILIAL",
+              "READY_FOR_PICKUP",
+              "ISSUED",
+              "CANCELLED",
+              "DECLINED"
+            ]
+          },
+          "trackCode": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "paymentId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "paymentToken": {
+            "type": "string"
+          },
+          "specId": {
+            "type": "string"
+          },
+          "created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isSubProductCh": {
+            "type": "boolean"
+          },
+          "orderComment1688": {
+            "type": "string"
+          },
+          "priceDelivery": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "exhcnageRateUsd": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "priceDeliveryFinal": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "weight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "barcode": {
+            "type": "string"
+          },
+          "nameFilial": {
+            "type": "string"
+          },
+          "isFulloRequired": {
+            "type": "boolean"
+          },
+          "fulloDeliveryMethod": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "type": "string"
+          },
+          "calculationId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fulloPrice": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fulloPriceForCustomer": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "integrationCode": {
+            "type": "string"
+          },
+          "externalDeliveryTrackCode": {
+            "type": "string"
+          },
+          "fulloOrderId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fulloStatus": {
+            "type": "string"
+          },
+          "cityName": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "orderNumber": {
+            "type": "string"
+          },
+          "deliveryType": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "selectedColor": {
+            "type": "string",
+            "enum": [
+              "Сары Желтый 黄色",
+              "Жасыл Зеленый 绿色",
+              "Қызыл Красный 红色",
+              "Көк Синий 蓝色",
+              "Голубой Голубой 天蓝色",
+              "Қоңыр Коричневый 棕色",
+              "Қызғылт сары Оранжевый 橙色",
+              "Қызғылт Розовый 粉色",
+              "Күлгін Фиолетовый 紫色",
+              "Қара Черный 黑色",
+              "Ақ Белый 白色",
+              "Сұр Серый 灰色",
+              "Бежевый Бежевый 米色"
+            ]
+          },
+          "selectedSize": {
+            "type": "string"
+          }
+        }
+      },
+      "ProductCh": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "offerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "categoryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "topCategoryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "secondCategoryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "thirdCategoryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "subjectTrans": {
+            "type": "string"
+          },
+          "subjectTransKz": {
+            "type": "string"
+          },
+          "subjectTransRu": {
+            "type": "string"
+          },
+          "traceInfo": {
+            "type": "string"
+          },
+          "productCargoNumber": {
+            "type": "string"
+          },
+          "soldOut": {
+            "type": "string"
+          },
+          "tradeScore": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "name": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string",
+            "enum": [
+              "Сары Желтый 黄色",
+              "Жасыл Зеленый 绿色",
+              "Қызыл Красный 红色",
+              "Көк Синий 蓝色",
+              "Голубой Голубой 天蓝色",
+              "Қоңыр Коричневый 棕色",
+              "Қызғылт сары Оранжевый 橙色",
+              "Қызғылт Розовый 粉色",
+              "Күлгін Фиолетовый 紫色",
+              "Қара Черный 黑色",
+              "Ақ Белый 白色",
+              "Сұр Серый 灰色",
+              "Бежевый Бежевый 米色"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "descriptionRu": {
+            "type": "string"
+          },
+          "descriptionKz": {
+            "type": "string"
+          },
+          "mainVideo": {
+            "type": "string"
+          },
+          "rating": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "discount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "minOrderQuantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createDateSystem": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "createDate": {
+            "type": "string"
+          },
+          "sellerMixSetting": {
+            "$ref": "#/components/schemas/SellerMixSetting"
+          },
+          "sellerDataInfo": {
+            "$ref": "#/components/schemas/SellerDataInfo"
+          },
+          "imageUrl": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ImageUrl"
+            }
+          },
+          "skuEntityList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SkuEntity"
+            }
+          },
+          "saleInfo": {
+            "$ref": "#/components/schemas/SaleInfo"
+          },
+          "shippingInfo": {
+            "$ref": "#/components/schemas/ShippingInfo"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TagInfo"
+            }
+          },
+          "orders": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Orders"
+            }
+          },
+          "productSaleInfo": {
+            "$ref": "#/components/schemas/ProductSaleInfo"
+          },
+          "priceDelivery": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productCode": {
+            "type": "string"
+          },
+          "descriptionImages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ImageUrl"
+            }
+          },
+          "commonImages": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ImageUrl"
+            }
+          },
+          "is_active": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ProductChDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "nameKz": {
+            "type": "string"
+          },
+          "nameRu": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "descriptionRu": {
+            "type": "string"
+          },
+          "descriptionKz": {
+            "type": "string"
+          },
+          "subcategoryName": {
+            "type": "string"
+          },
+          "pricePerPiece": {
+            "type": "number",
+            "format": "double"
+          },
+          "amount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "photoUrl": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "createDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "favourites": {
+            "type": "boolean"
+          },
+          "inBasket": {
+            "type": "boolean"
+          },
+          "rating": {
+            "type": "number",
+            "format": "double"
+          },
+          "soldOut": {
+            "type": "string"
+          },
+          "tradeScore": {
+            "type": "string"
+          },
+          "mainVideo": {
+            "type": "string"
+          },
+          "minOrderQuantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "shippingInfo": {
+            "$ref": "#/components/schemas/ShippingInfo"
+          },
+          "productSaleInfo": {
+            "$ref": "#/components/schemas/ProductSaleInfo"
+          },
+          "groupedAttributes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttributeResponse"
+            }
+          },
+          "descriptionImages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "discount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "articul": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "categoryInfo": {
+            "$ref": "#/components/schemas/CategoryInfoDTO"
+          },
+          "sellerMixSetting": {
+            "$ref": "#/components/schemas/SellerMixSetting"
+          },
+          "sellerDataInfo": {
+            "$ref": "#/components/schemas/SellerDataInfo"
+          }
+        }
+      },
+      "ProductSaleInfo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "amountOnSale": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "SaleInfo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "amountOnSale": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "priceRange": {
+            "type": "string"
+          },
+          "quoteType": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unitInfo": {
+            "type": "string"
+          }
+        }
+      },
+      "Seller": {
+        "type": "object",
+        "properties": {
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nameOfCompany": {
+            "type": "string"
+          },
+          "name_of_marketplace": {
+            "type": "string"
+          },
+          "logo": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "contactSellers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContactSeller"
+            }
+          },
+          "rating": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "ROLE_CLIENT",
+              "ROLE_ADMIN",
+              "ROLE_SELLER"
+            ]
+          },
+          "phone": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "bin": {
+            "type": "string"
+          },
+          "telegram": {
+            "type": "string"
+          },
+          "whatsApp": {
+            "type": "string"
+          },
+          "instagram": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "cityName": {
+            "type": "string"
+          },
+          "lat": {
+            "type": "number",
+            "format": "double"
+          },
+          "lng": {
+            "type": "number",
+            "format": "double"
+          },
+          "password": {
+            "type": "string"
+          },
+          "tiktok": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "authorities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GrantedAuthority"
+            }
+          },
+          "accountNonLocked": {
+            "type": "boolean"
+          },
+          "accountNonExpired": {
+            "type": "boolean"
+          },
+          "credentialsNonExpired": {
+            "type": "boolean"
+          },
+          "manuallyEdited": {
+            "type": "boolean"
+          },
+          "oked": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "enabled": {
+            "type": "boolean"
+          }
+        }
+      },
+      "SellerDataInfo": {
+        "type": "object",
+        "properties": {
+          "tradeMedalLevel": {
+            "type": "string"
+          },
+          "compositeServiceScore": {
+            "type": "string"
+          },
+          "logisticsExperienceScore": {
+            "type": "string"
+          },
+          "disputeComplaintScore": {
+            "type": "string"
+          },
+          "offerExperienceScore": {
+            "type": "string"
+          },
+          "consultingExperienceScore": {
+            "type": "string"
+          },
+          "repeatPurchasePercent": {
+            "type": "string"
+          },
+          "afterSalesExperienceScore": {
+            "type": "string"
+          },
+          "collect30DayWithin48HPercent": {
+            "type": "string"
+          },
+          "qualityRefundWithin30Day": {
+            "type": "string"
+          }
+        }
+      },
+      "SellerMixSetting": {
+        "type": "object",
+        "properties": {
+          "generalHunpi": {
+            "type": "boolean"
+          },
+          "mixAmount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "mixNumber": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ShippingInfo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "product": {
+            "$ref": "#/components/schemas/ProductCh"
+          },
+          "weight": {
+            "type": "number",
+            "format": "double"
+          },
+          "width": {
+            "type": "number",
+            "format": "double"
+          },
+          "height": {
+            "type": "number",
+            "format": "double"
+          },
+          "length": {
+            "type": "number",
+            "format": "double"
+          },
+          "sendGoodsAddress": {
+            "type": "string"
+          },
+          "shippingTimeGuarantee": {
+            "type": "string"
+          }
+        }
+      },
+      "SkuAttribute": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "attributeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "attributeName": {
+            "type": "string"
+          },
+          "attributeName_ru": {
+            "type": "string"
+          },
+          "attributeName_kz": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "value_kz": {
+            "type": "string"
+          },
+          "value_ru": {
+            "type": "string"
+          },
+          "attributeNameTrans": {
+            "type": "string"
+          },
+          "valueTrans": {
+            "type": "string"
+          },
+          "skuImageUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "SkuEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "skuId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "amountOnSale": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "consignPrice": {
+            "type": "string"
+          },
+          "finalPriceKzAlmaty": {
+            "type": "string"
+          },
+          "finalPriceKzRegions": {
+            "type": "string"
+          },
+          "finalPriceKzBatys": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SkuAttribute"
+            }
+          }
+        }
+      },
+      "SubAttributeDTO": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "valueTrans": {
+            "type": "string"
+          },
+          "valueKz": {
+            "type": "string"
+          },
+          "valueRu": {
+            "type": "string"
+          },
+          "finalPriceKzAlmaty": {
+            "type": "string"
+          },
+          "finalPriceKzRegions": {
+            "type": "string"
+          },
+          "finalPriceKzBatys": {
+            "type": "string"
+          },
+          "specId": {
+            "type": "string"
+          },
+          "width": {
+            "type": "number",
+            "format": "double"
+          },
+          "height": {
+            "type": "number",
+            "format": "double"
+          },
+          "length": {
+            "type": "number",
+            "format": "double"
+          },
+          "weight": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "amountOnSale": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "TagInfo": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ClothingVariantDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "size": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "balanceInStock": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "photoUrls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ColorVariantDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "colorKZ": {
+            "type": "string"
+          },
+          "colorRU": {
+            "type": "string"
+          },
+          "colorCH": {
+            "type": "string"
+          },
+          "photoUrls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sizes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClothingVariantDTO"
+            }
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "balanceInStock": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "isActive": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CustomerDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "FilialDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "workingHour": {
+            "type": "string"
+          },
+          "lunchBreak": {
+            "type": "string"
+          },
+          "dayOffs": {
+            "type": "string"
+          },
+          "city": {
+            "$ref": "#/components/schemas/City"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "coords": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "format": "double"
+            }
+          },
+          "integrationCode": {
+            "type": "string"
+          },
+          "serviceCalculationId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "deliveryPrice": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "deliveryPriceForCustomer": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "deliveryMethod": {
+            "type": "string"
+          },
+          "deliveryType": {
+            "type": "string"
+          }
+        }
+      },
+      "OrderDTO": {
+        "type": "object",
+        "properties": {
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "orderNumber": {
+            "type": "string"
+          },
+          "customerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "customerType": {
+            "type": "string"
+          },
+          "customerDTO": {
+            "$ref": "#/components/schemas/CustomerDTO"
+          },
+          "statusOfOrder": {
+            "type": "string"
+          },
+          "statusOfOrderRu": {
+            "type": "string"
+          },
+          "statusOfOrderKz": {
+            "type": "string"
+          },
+          "statusDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "descriptionRu": {
+            "type": "string"
+          },
+          "descriptionKz": {
+            "type": "string"
+          },
+          "descriptionCh": {
+            "type": "string"
+          },
+          "statusDescription": {
+            "type": "string"
+          },
+          "statusDescriptionKz": {
+            "type": "string"
+          },
+          "statusDescriptionRu": {
+            "type": "string"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderItemDTO"
+            }
+          },
+          "productId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "actual": {
+            "type": "boolean"
+          },
+          "productDTO": {
+            "$ref": "#/components/schemas/ProductDTO"
+          },
+          "productChDTO": {
+            "$ref": "#/components/schemas/ProductChDTO"
+          },
+          "productPrice": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "amountOfProduct": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "photoUrl": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "barcode": {
+            "type": "string"
+          },
+          "articul": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "colorKz": {
+            "type": "string"
+          },
+          "colorRu": {
+            "type": "string"
+          },
+          "colorCh": {
+            "type": "string"
+          },
+          "size": {
+            "type": "string"
+          },
+          "filialDTO": {
+            "$ref": "#/components/schemas/FilialDTO"
+          },
+          "filialPhone": {
+            "type": "string"
+          },
+          "deliveryAddress": {
+            "type": "string"
+          },
+          "deliveryType": {
+            "type": "string"
+          },
+          "deliveryPrice": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "deliveryTrackCode": {
+            "type": "string"
+          },
+          "cityName": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "paymentId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "orderPrice": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalOrderPrice": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalOrderWeight": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalDeliveryPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "trackCode": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "sellerDTO": {
+            "$ref": "#/components/schemas/SellerDto"
+          }
+        }
+      },
+      "OrderItemDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productDTO": {
+            "$ref": "#/components/schemas/ProductDTO"
+          },
+          "productChDTO": {
+            "$ref": "#/components/schemas/ProductChDTO"
+          },
+          "amountOfProduct": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productPrice": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "orderPrice": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "photoUrl": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "barcode": {
+            "type": "string"
+          },
+          "articul": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "colorKz": {
+            "type": "string"
+          },
+          "colorRu": {
+            "type": "string"
+          },
+          "colorCh": {
+            "type": "string"
+          },
+          "size": {
+            "type": "string"
+          },
+          "actual": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ProductCharacteristicDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "ProductDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "subcategoryName": {
+            "type": "string"
+          },
+          "nameKz": {
+            "type": "string"
+          },
+          "nameRu": {
+            "type": "string"
+          },
+          "pricePerPiece": {
+            "type": "number",
+            "format": "double"
+          },
+          "amount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": {
+            "type": "string"
+          },
+          "descriptionKz": {
+            "type": "string"
+          },
+          "descriptionRu": {
+            "type": "string"
+          },
+          "finalPrice": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "deliveryId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "balanceInStock": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "photoUrl": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "boolean"
+          },
+          "createDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "rating": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "favourites": {
+            "type": "boolean"
+          },
+          "inBasket": {
+            "type": "boolean"
+          },
+          "material": {
+            "type": "string"
+          },
+          "colorKZ": {
+            "type": "string"
+          },
+          "colorRU": {
+            "type": "string"
+          },
+          "colorCH": {
+            "type": "string"
+          },
+          "categoryDTO": {
+            "$ref": "#/components/schemas/CategoryDTO"
+          },
+          "subcategoryDTO": {
+            "$ref": "#/components/schemas/CategoryDTO"
+          },
+          "orderCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "discount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "articul": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "publicUrl": {
+            "type": "string"
+          },
+          "seller": {
+            "$ref": "#/components/schemas/SellerDto"
+          },
+          "characteristics": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductCharacteristicDto"
+            }
+          },
+          "shippingInfo": {
+            "$ref": "#/components/schemas/ShippingInfoDto"
+          },
+          "colorVariants": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ColorVariantDTO"
+            }
+          },
+          "variants": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductVariantDTO"
+            }
+          }
+        }
+      },
+      "ProductVariantDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "colorKZ": {
+            "type": "string"
+          },
+          "colorRU": {
+            "type": "string"
+          },
+          "colorCH": {
+            "type": "string"
+          },
+          "size": {
+            "type": "string"
+          },
+          "sku": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "balanceInStock": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "photoUrls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "SellerDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "nameOfCompany": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "instagram": {
+            "type": "string"
+          },
+          "tiktok": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "cityName": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ShippingInfoDto": {
+        "type": "object",
+        "properties": {
+          "weightGrams": {
+            "type": "number",
+            "format": "double"
+          },
+          "widthCm": {
+            "type": "number",
+            "format": "double"
+          },
+          "heightCm": {
+            "type": "number",
+            "format": "double"
+          },
+          "lengthCm": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "CreateOrderRequest": {
+        "type": "object",
+        "properties": {
+          "productIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "specIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isSubs": {
+            "type": "array",
+            "items": {
+              "type": "boolean"
+            }
+          },
+          "country": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "filialId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "promocode": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string"
+          },
+          "integrationCode": {
+            "type": "string"
+          },
+          "filialAddress": {
+            "type": "string"
+          },
+          "serviceCalculationId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "deliveryMethod": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fulloPrice": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fulloPriceForCustomer": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cityId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "region": {
+            "type": "string"
+          },
+          "cityName": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "deliveryType": {
+            "type": "string"
+          },
+          "deliveryPaidByCustomer": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CreatePaymentResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateOrderRequestV2": {
+        "type": "object",
+        "properties": {
+          "productIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "specIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "isSubs": {
+            "type": "array",
+            "items": {
+              "type": "boolean"
+            }
+          },
+          "country": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "filialId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "promocode": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string"
+          },
+          "integrationCode": {
+            "type": "string"
+          },
+          "filialAddress": {
+            "type": "string"
+          },
+          "serviceCalculationId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "deliveryMethod": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fulloPrice": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fulloPriceForCustomer": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cityId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "region": {
+            "type": "string"
+          },
+          "cityName": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "deliveryType": {
+            "type": "string"
+          },
+          "deliveryPaidByCustomer": {
+            "type": "boolean"
+          },
+          "cartOrderIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        }
+      },
+      "AddressDto": {
+        "required": [
+          "city_name",
+          "country_code",
+          "full_address",
+          "house",
+          "region",
+          "street"
+        ],
+        "type": "object",
+        "properties": {
+          "country_code": {
+            "type": "string"
+          },
+          "full_address": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string"
+          },
+          "city_name": {
+            "type": "string"
+          },
+          "street": {
+            "type": "string"
+          },
+          "house": {
+            "type": "string"
+          }
+        }
+      },
+      "GiveCalcToDoor": {
+        "type": "object",
+        "properties": {
+          "deliveryMethod": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "toAddress": {
+            "$ref": "#/components/schemas/AddressDto"
+          },
+          "fromAddress": {
+            "$ref": "#/components/schemas/AddressDto"
+          },
+          "productIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "amount": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "source": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateFeedbackRequest": {
+        "type": "object",
+        "properties": {
+          "grade": {
+            "maximum": 5,
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "productId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productChId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "moderatorsId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "Feedbacks": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "grade": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "comment": {
+            "type": "string"
+          },
+          "productId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productChId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sellerComment": {
+            "type": "string"
+          },
+          "moderatorId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "FavoritesDTO": {
+        "type": "object",
+        "properties": {
+          "productDTO": {
+            "$ref": "#/components/schemas/ProductDTO"
+          },
+          "productChDTO": {
+            "$ref": "#/components/schemas/ProductChDTO"
+          }
+        }
+      },
+      "SuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CartAddRequest": {
+        "type": "object",
+        "properties": {
+          "productId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "amount": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "color": {
+            "type": "string"
+          },
+          "sizes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cityId": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "CalculationRequest": {
+        "type": "object",
+        "properties": {
+          "productIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "amount": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "source": {
+            "type": "string"
+          }
+        }
+      },
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "PageFeedbacks": {
+        "type": "object",
+        "properties": {
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Feedbacks"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageableObject": {
+        "type": "object",
+        "properties": {
+          "unpaged": {
+            "type": "boolean"
+          },
+          "paged": {
+            "type": "boolean"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          }
+        }
+      },
+      "SortObject": {
+        "type": "object",
+        "properties": {
+          "unsorted": {
+            "type": "boolean"
+          },
+          "sorted": {
+            "type": "boolean"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CategoryImageUploadRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "file": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "SignUpRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "cityId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "filialId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "password": {
+            "type": "string"
+          },
+          "smsCode": {
+            "type": "string"
+          },
+          "pushToken": {
+            "type": "string"
+          },
+          "pushStatus": {
+            "type": "boolean"
+          },
+          "email": {
+            "type": "string"
+          },
+          "presentId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "fromWho": {
+            "type": "string"
+          },
+          "regionName": {
+            "type": "string"
+          },
+          "cityName": {
+            "type": "string"
+          }
+        },
+        "description": "Запрос на регистрацию физ.лица"
+      },
+      "JwtAuthenticationResponse": {
+        "type": "object",
+        "properties": {
+          "accessToken": {
+            "type": "string"
+          },
+          "expiresIn": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "refreshToken": {
+            "type": "string"
+          },
+          "refreshExpiresIn": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "description": "Ответ с токеном доступа"
+      },
+      "SignInRequest": {
+        "required": [
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "string"
+          },
+          "password": {
+            "maxLength": 20,
+            "minLength": 4,
+            "type": "string"
+          }
+        },
+        "description": "Запрос на авторизацию физ.лица"
+      },
+      "JwtRefreshRequest": {
+        "required": [
+          "refreshToken"
+        ],
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "type": "string"
+          }
+        }
+      },
+      "PairStringLong": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "string"
+          },
+          "second": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "CreateCategoryRequest": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "level": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parent_category_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "category_path": {
+            "type": "string"
+          },
+          "category_name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "short_description": {
+            "type": "string"
+          },
+          "image_url": {
+            "type": "string"
+          }
+        }
+      },
+      "ReferralsDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "PageOrderDTO": {
+        "type": "object",
+        "properties": {
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderDTO"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CustomerPresentsDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "ProfileResponseDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "idCode": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "imageId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "profileImageUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "PageObject": {
+        "type": "object",
+        "properties": {
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageProductDTO": {
+        "type": "object",
+        "properties": {
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductDTO"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PresentDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "imageUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "TransactionStatusResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "status_description": {
+            "type": "string"
+          }
+        }
+      },
+      "PageFavoritesDTO": {
+        "type": "object",
+        "properties": {
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FavoritesDTO"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CartOrderDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "cartOrderId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "productName": {
+            "type": "string"
+          },
+          "productNameRu": {
+            "type": "string"
+          },
+          "productNameKz": {
+            "type": "string"
+          },
+          "sellerPaysShipping": {
+            "type": "boolean"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "finalPriceKzAlmaty": {
+            "type": "string"
+          },
+          "finalPriceKzRegions": {
+            "type": "string"
+          },
+          "finalPriceKzBatys": {
+            "type": "string"
+          },
+          "specId": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string"
+          },
+          "descriptionRu": {
+            "type": "string"
+          },
+          "descriptionKz": {
+            "type": "string"
+          },
+          "balanceInStock": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "brand": {
+            "type": "string"
+          },
+          "createDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updateDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "favourites": {
+            "type": "boolean"
+          },
+          "inBasket": {
+            "type": "boolean"
+          },
+          "photoUrl": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "typeOfProduct": {
+            "type": "string"
+          },
+          "typeOfProductRu": {
+            "type": "string"
+          },
+          "typeOfProductKz": {
+            "type": "string"
+          },
+          "categoryKz": {
+            "type": "string"
+          },
+          "categoryRu": {
+            "type": "string"
+          },
+          "categoryCh": {
+            "type": "string"
+          },
+          "valueTrans": {
+            "type": "string"
+          },
+          "isSub": {
+            "type": "boolean"
+          },
+          "discount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "articul": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "publicUrl": {
+            "type": "string"
+          },
+          "colorKz": {
+            "type": "string"
+          },
+          "colorRu": {
+            "type": "string"
+          },
+          "colorCh": {
+            "type": "string"
+          },
+          "size": {
+            "type": "string"
+          },
+          "seller": {
+            "$ref": "#/components/schemas/SellerDto"
+          },
+          "variants": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductVariantDTO"
+            }
+          },
+          "available": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageCartOrderDTO": {
+        "type": "object",
+        "properties": {
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CartOrderDTO"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CityDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "region_name": {
+            "type": "string"
+          },
+          "price_type": {
+            "type": "string"
+          }
+        }
+      },
+      "DeliveryMethodOption": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nameRu": {
+            "type": "string"
+          }
+        }
+      },
+      "Filial": {
+        "type": "object",
+        "properties": {
+          "created_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "update_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "working_hour": {
+            "type": "string"
+          },
+          "lunch_break": {
+            "type": "string"
+          },
+          "day_offs": {
+            "type": "string"
+          },
+          "city": {
+            "$ref": "#/components/schemas/City"
+          },
+          "cityidname": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "price_china_id": {
+            "$ref": "#/components/schemas/Tariffs"
+          },
+          "price_turkey_auto_id": {
+            "$ref": "#/components/schemas/Tariffs"
+          },
+          "price_turkey_avia_id": {
+            "$ref": "#/components/schemas/Tariffs"
+          },
+          "index": {
+            "type": "string"
+          },
+          "name_index_filial": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "region": {
+            "type": "string",
+            "enum": [
+              "ALMATY",
+              "REGION",
+              "BATYS"
+            ]
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "name_filial": {
+            "type": "string"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "main": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PageFilial": {
+        "type": "object",
+        "properties": {
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Filial"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Tariffs": {
+        "type": "object",
+        "properties": {
+          "created_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "update_date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "FilialResponse": {
+        "type": "object",
+        "properties": {
+          "created_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "name": {
+            "type": "string"
+          },
+          "index": {
+            "type": "string"
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double"
+          },
+          "latitude": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "DeviceToken": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "token": {
+            "type": "string"
+          },
+          "customerId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "platform": {
+            "type": "string"
+          }
+        }
+      },
+      "OrderStatusDTO": {
+        "type": "object",
+        "properties": {
+          "orderId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "orderStatus": {
+            "type": "string",
+            "enum": [
+              "DELAY_DUE_TO_HOLIDAYS",
+              "WAITING_PAYMENT",
+              "PAID_AND_CREATED",
+              "TO_CHINA_STORE",
+              "CHINA",
+              "WAREHOUSE_CHECK",
+              "PACKAGED",
+              "PREPARING_FOR_TERMINAL",
+              "AWAITING_DISPATCH",
+              "SENT_TO_TERMINAL",
+              "ARRIVED_AT_CUSTOMS",
+              "AT_CUSTOMS",
+              "CUSTOMS_CHECK",
+              "CUSTOMS_COMPLETED",
+              "PENDING",
+              "SENT_TO_STATION",
+              "SENT_TO_SORTING",
+              "TRANSFERRED_TO_THE_SENDER",
+              "SORTING",
+              "SENT_TO_YOUR_CITY",
+              "SENT_TO_THE_CITY",
+              "WAITING_FOR_ARRIVAL",
+              "SUB_FILIAL",
+              "READY_FOR_PICKUP",
+              "ISSUED",
+              "CANCELLED",
+              "DECLINED"
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "descriptionKz": {
+            "type": "string"
+          },
+          "descriptionRu": {
+            "type": "string"
+          },
+          "codeToReceive": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "createdDate": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "FeatureDTO": {
+        "type": "object",
+        "properties": {
+          "featureId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": {
+            "type": "string"
+          },
+          "variants": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/VariantDTO"
+            }
+          }
+        }
+      },
+      "VariantDTO": {
+        "type": "object",
+        "properties": {
+          "variantId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "PageCategoryDTO": {
+        "type": "object",
+        "properties": {
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CategoryDTO"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CategoryWithChildrenDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "parentCategoryId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "level": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "categoryPath": {
+            "type": "string"
+          },
+          "categoryName": {
+            "type": "string"
+          },
+          "kazName": {
+            "type": "string"
+          },
+          "chName": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "shortDescription": {
+            "type": "string"
+          },
+          "children": {
+            "$ref": "#/components/schemas/CategoryDTO"
+          },
+          "parentCategory": {
+            "$ref": "#/components/schemas/CategoryDTO"
+          }
+        }
+      },
+      "PageCategoryWithChildrenDTO": {
+        "type": "object",
+        "properties": {
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CategoryWithChildrenDTO"
+            }
+          },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/SortObject"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CategoryPriceProjection": {
+        "type": "object",
+        "properties": {
+          "minPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "maxPrice": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

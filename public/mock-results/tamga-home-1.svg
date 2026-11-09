@@ -1,0 +1,8 @@
+<svg width="900" height="900" viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="900" fill="#EFE7D8"/>
+  <rect x="120" y="606" width="660" height="86" rx="20" fill="#B8A083"/>
+  <rect x="250" y="330" width="400" height="270" rx="44" fill="#FFFFFF" stroke="#18191F" stroke-width="10"/>
+  <circle cx="450" cy="465" r="74" fill="#F14635"/>
+  <text x="450" y="142" text-anchor="middle" font-family="Arial" font-size="46" font-weight="800" fill="#18191F">MADE FOR HOME</text>
+  <text x="450" y="760" text-anchor="middle" font-family="Arial" font-size="30" fill="#5F564C">Warm style. Durable daily comfort.</text>
+</svg>

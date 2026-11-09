@@ -1,0 +1,9 @@
+<svg width="900" height="900" viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="900" fill="#FAF8F3"/>
+  <rect x="110" y="630" width="680" height="54" rx="27" fill="#D9D3C8"/>
+  <path d="M166 625L450 230L734 625H166Z" fill="#F14635"/>
+  <path d="M246 602L450 320L654 602H246Z" fill="#22242B"/>
+  <path d="M450 320V602" stroke="#FAF8F3" stroke-width="8"/>
+  <path d="M308 602L450 320L592 602" stroke="#FAF8F3" stroke-width="8"/>
+  <text x="450" y="754" text-anchor="middle" font-family="Arial" font-size="34" font-weight="700" fill="#18191F">SOURCE PRODUCT</text>
+</svg>

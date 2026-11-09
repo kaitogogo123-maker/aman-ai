@@ -1,0 +1,8 @@
+<svg width="900" height="900" viewBox="0 0 900 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="900" fill="#101114"/>
+  <rect x="170" y="210" width="560" height="360" rx="42" fill="#242832" stroke="#4D8AF7" stroke-width="8"/>
+  <rect x="250" y="290" width="400" height="200" rx="24" fill="#0D1117"/>
+  <path d="M270 630H630L700 740H200L270 630Z" fill="#E9EEF9"/>
+  <text x="450" y="112" text-anchor="middle" font-family="Arial" font-size="44" font-weight="800" fill="#FAF8F3">SMART POWER</text>
+  <text x="450" y="810" text-anchor="middle" font-family="Arial" font-size="30" fill="#9FB9E8">High clarity display. All day battery.</text>
+</svg>
